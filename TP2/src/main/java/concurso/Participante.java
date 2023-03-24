@@ -1,15 +1,20 @@
 package concurso;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class Participante {
 
+	private Long id;
 	private String nombre;
 	private Integer puntos;
 
-	public Participante(String nombre) {
-		this.nombre = nombre;
+	private static Long idPorDefecto = -1L;
+
+	public Participante(Optional<Long> id, String nombre) {
 		this.puntos = 0;
+		this.nombre = nombre;
+		this.id = id.orElse(idPorDefecto);
 	}
 
 	void sumarPuntos(Integer puntos) {
@@ -35,6 +40,15 @@ public class Participante {
 			return false;
 		Participante other = (Participante) obj;
 		return Objects.equals(nombre, other.nombre);
+	}
+
+	@Override
+	public String toString() {
+		return id.toString();
+	}
+
+	public Long getID() {
+		return this.id;
 	}
 
 }

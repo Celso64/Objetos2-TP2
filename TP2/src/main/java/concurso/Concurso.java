@@ -3,47 +3,47 @@ package concurso;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import persistencia.Persistencia;
+import java.util.Optional;
 
 public class Concurso {
 
+	private Long id;
 	private LocalDate fechaInicio;
 	private Integer plazo;
 	private List<Participante> participantes;
-	private String ruta;
 	private PlanillaIncriptos salida;
 
-	public Concurso(Integer plazo, String ruta, PlanillaIncriptos salida) {
+	private static Long idPorDefecto = -1L;
+
+	public Concurso(Optional<Long> id, Integer plazo, PlanillaIncriptos salida) {
+		this.id = id.orElse(idPorDefecto);
 		this.fechaInicio = LocalDate.now();
 		this.plazo = plazo;
 		this.participantes = new ArrayList<Participante>();
-		this.ruta = ruta;
 		this.salida = salida;
 	}
 
-	public Concurso(LocalDate fecha, Integer plazo, String ruta, PlanillaIncriptos salida) {
+	public Concurso(Optional<Long> id, LocalDate fecha, Integer plazo, PlanillaIncriptos salida) {
+		this(id, plazo, salida);
 		this.fechaInicio = fecha;
-		this.plazo = plazo;
-		this.participantes = new ArrayList<Participante>();
-		this.ruta = ruta;
-		this.salida = salida;
 	}
 
-	public void sumarParticipante(Participante p) {
+	public void sumarParticipante(Participante participante) {
 		LocalDate hoy = LocalDate.now();
 		if (hoy.isAfter(fechaInicio.plusDays(this.plazo))) {
 			throw new RuntimeException("Plazo Vencido");
 		}
 		if (hoy.isEqual(fechaInicio)) {
-			p.sumarPuntos(10);
+			participante.sumarPuntos(10);
+			this.salida.incribirParticipante(
+					LocalDate.now().toString() + " " + participante.toString() + ", " + this.id + "\n");
 		}
-		this.participantes.add(p);
+		this.participantes.add(participante);
 	}
 
 	public Integer getPuntosParticipante(String nombre) {
 		for (Participante p : this.participantes) {
-			if (p.equals(new Participante(nombre))) {
+			if (p.equals(new Participante(null, nombre))) {
 				return p.getPuntos();
 			}
 		}
