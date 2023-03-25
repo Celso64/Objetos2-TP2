@@ -1,8 +1,5 @@
 package mains;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
@@ -10,30 +7,30 @@ import java.util.Optional;
 import concurso.Concurso;
 import concurso.Participante;
 import concurso.PlanillaIncriptos;
-import concursoAlmacenamiento.ArchivoPlanillaInscriptos;
+import concursoAlmacenamiento.EmailPlanillaInscriptos;
+import email.EmailTrapEmail;
 
 public class ConcursoApp {
 
 	public static void main(String[] args) {
 
 		try {
-			PlanillaIncriptos planilla = new ArchivoPlanillaInscriptos(
-					new FileOutputStream(new File("/home/carlos/Desktop/salida.txt"), true));
+			PlanillaIncriptos planilla = new EmailPlanillaInscriptos(
+					new EmailTrapEmail("mailtrap@celsotest.com", "mailtrap@celsotest.com"));
 
-			Concurso c = new Concurso(Optional.of(1L), 31, planilla);
-			Participante p;
+			Concurso concurso = new Concurso(Optional.of(1L), 31, planilla);
+			Participante participante;
 
 			List<String> nombres = List.of("Carlos", "Sandra", "Martin", "Manuel");
 			Long i = 0L;
 
 			for (String string : nombres) {
-				p = new Participante(Optional.of(i), string);
-				c.sumarParticipante(p);
+				participante = new Participante(Optional.of(i), string);
+				concurso.sumarParticipante(participante);
 				i++;
 			}
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

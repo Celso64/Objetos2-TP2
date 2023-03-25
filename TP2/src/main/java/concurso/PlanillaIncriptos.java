@@ -1,7 +1,9 @@
 package concurso;
 
+import java.time.LocalDate;
+
 public interface PlanillaIncriptos {
 
-	void incribirParticipante(String mensaje);
+	void incribirParticipante(LocalDate fecha, Participante participante, Concurso concurso);
 
 }

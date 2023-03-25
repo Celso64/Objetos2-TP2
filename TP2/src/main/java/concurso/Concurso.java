@@ -35,8 +35,7 @@ public class Concurso {
 		}
 		if (hoy.isEqual(fechaInicio)) {
 			participante.sumarPuntos(10);
-			this.salida.incribirParticipante(
-					LocalDate.now().toString() + " " + participante.toString() + ", " + this.id + "\n");
+			this.salida.incribirParticipante(LocalDate.now(), participante, this);
 		}
 		this.participantes.add(participante);
 	}
@@ -48,6 +47,10 @@ public class Concurso {
 			}
 		}
 		return 0;
+	}
+
+	public Long getID() {
+		return this.id;
 	}
 
 }
