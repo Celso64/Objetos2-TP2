@@ -1,20 +1,21 @@
 package concurso;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class Participante {
 
-	private Long id;
+	private Long id = -1L;
 	private String nombre;
 	private Integer puntos;
 
-	private static Long idPorDefecto = -1L;
-
-	public Participante(Optional<Long> id, String nombre) {
+	public Participante(String nombre) {
 		this.puntos = 0;
 		this.nombre = nombre;
-		this.id = id.orElse(idPorDefecto);
+	}
+
+	public Participante(Long id, String nombre) {
+		this(nombre);
+		this.id = id;
 	}
 
 	void sumarPuntos(Integer puntos) {

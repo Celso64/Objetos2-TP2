@@ -3,27 +3,33 @@ package concurso;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Concurso {
 
-	private Long id;
+	private Long id = -1L;
 	private LocalDate fechaInicio;
 	private Integer plazo;
 	private List<Participante> participantes;
 	private PlanillaIncriptos salida;
 
-	private static Long idPorDefecto = -1L;
-
-	public Concurso(Optional<Long> id, Integer plazo, PlanillaIncriptos salida) {
-		this.id = id.orElse(idPorDefecto);
+	public Concurso(Integer plazo, PlanillaIncriptos salida) {
 		this.fechaInicio = LocalDate.now();
 		this.plazo = plazo;
 		this.participantes = new ArrayList<Participante>();
 		this.salida = salida;
 	}
 
-	public Concurso(Optional<Long> id, LocalDate fecha, Integer plazo, PlanillaIncriptos salida) {
+	public Concurso(Long id, Integer plazo, PlanillaIncriptos salida) {
+		this(plazo, salida);
+		this.id = id;
+	}
+
+	public Concurso(LocalDate fecha, Integer plazo, PlanillaIncriptos salida) {
+		this(plazo, salida);
+		this.fechaInicio = fecha;
+	}
+
+	public Concurso(Long id, LocalDate fecha, Integer plazo, PlanillaIncriptos salida) {
 		this(id, plazo, salida);
 		this.fechaInicio = fecha;
 	}
@@ -35,8 +41,8 @@ public class Concurso {
 		}
 		if (hoy.isEqual(fechaInicio)) {
 			participante.sumarPuntos(10);
-			this.salida.incribirParticipante(LocalDate.now(), participante, this);
 		}
+		this.salida.incribirParticipante(LocalDate.now(), participante, this);
 		this.participantes.add(participante);
 	}
 

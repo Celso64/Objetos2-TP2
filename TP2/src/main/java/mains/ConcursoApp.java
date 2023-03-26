@@ -1,8 +1,6 @@
 package mains;
 
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 import concurso.Concurso;
 import concurso.Participante;
@@ -18,14 +16,14 @@ public class ConcursoApp {
 			PlanillaIncriptos planilla = new EmailPlanillaInscriptos(
 					new EmailTrapEmail("mailtrap@celsotest.com", "mailtrap@celsotest.com"));
 
-			Concurso concurso = new Concurso(Optional.of(1L), 31, planilla);
+			Concurso concurso = new Concurso(1L, 31, planilla);
 			Participante participante;
 
 			List<String> nombres = List.of("Carlos", "Sandra", "Martin", "Manuel");
 			Long i = 0L;
 
 			for (String string : nombres) {
-				participante = new Participante(Optional.of(i), string);
+				participante = new Participante(i, string);
 				concurso.sumarParticipante(participante);
 				i++;
 			}
@@ -34,7 +32,6 @@ public class ConcursoApp {
 			e.printStackTrace();
 		}
 
-		Paths.get("/Escritorio/salida.txt");
 	}
 
 }
