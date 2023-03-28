@@ -21,7 +21,7 @@ public class EmailTrapEmail implements Email {
 		super();
 		this.correoOrigen = correoOrigen;
 		this.correoDestino = correoDestino;
-		this.props = new Properties();
+		this.props = EmailManager.getProperties();
 	}
 
 	@Override
@@ -31,16 +31,16 @@ public class EmailTrapEmail implements Email {
 		// provide sender's email ID
 		String from = this.correoOrigen;
 		// provide Mailtrap's username
-		final String username = "api";
+		final String username = props.getProperty("username");
 		// provide Mailtrap's password
-		final String password = "811234118a808edb68b88f8a2e102e4b";
+		final String password = props.getProperty("password");
 		// provide Mailtrap's host address
-		String host = "live.smtp.mailtrap.io";
+		String host = props.getProperty("host");
 		// configure Mailtrap's SMTP server details
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.port", props.getProperty("port"));
 
 		session = Session.getInstance(props, new jakarta.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -61,7 +61,7 @@ public class EmailTrapEmail implements Email {
 			message.setText(mensaje);
 			// send the email message
 			Transport.send(message);
-			System.out.println("Email Message Sent Successfully");
+			System.out.println("Email enviado");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}

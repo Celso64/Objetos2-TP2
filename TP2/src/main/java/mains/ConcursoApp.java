@@ -19,7 +19,7 @@ public class ConcursoApp {
 			Concurso concurso = new Concurso(1L, 31, planilla);
 			Participante participante;
 
-			List<String> nombres = List.of("Carlos", "Sandra", "Martin", "Manuel");
+			List<String> nombres = List.of("Carlos");
 			Long i = 0L;
 
 			for (String string : nombres) {
