@@ -3,7 +3,7 @@ package email;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public abstract class EmailManager {
+abstract class EmailManager {
 
 	public static Properties getProperties() {
 		Properties prop = new Properties();

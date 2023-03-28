@@ -5,4 +5,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>TP2-Restaurante</name>
   <description>Lo respecto al Restaurante</description>
+  <dependencies>
+	 <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>8.0.32</version>
+	</dependency>
+  </dependencies>
 </project>

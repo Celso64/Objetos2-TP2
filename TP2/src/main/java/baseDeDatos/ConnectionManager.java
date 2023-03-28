@@ -3,7 +3,7 @@ package baseDeDatos;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public abstract class ConnectionManager {
+abstract class ConnectionManager {
 
 	public static Properties getProperties() throws RuntimeException {
 
