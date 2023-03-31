@@ -10,19 +10,19 @@ public class Participante {
 
 	public Participante(String nombre) {
 		this.puntos = 0;
-		this.nombre = nombre;
+		this.nombre = Objects.requireNonNull(nombre);
 	}
 
 	public Participante(Long id, String nombre) {
 		this(nombre);
-		this.id = id;
+		this.id = Objects.requireNonNull(id);
 	}
 
 	void sumarPuntos(Integer puntos) {
 		this.puntos += puntos;
 	}
 
-	public Integer getPuntos() {
+	Integer getPuntos() {
 		return this.puntos;
 	}
 

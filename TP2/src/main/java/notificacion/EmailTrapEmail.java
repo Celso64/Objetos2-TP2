@@ -1,5 +1,6 @@
-package email;
+package notificacion;
 
+import java.util.Objects;
 import java.util.Properties;
 
 import jakarta.mail.Message;
@@ -10,18 +11,17 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
-public class EmailTrapEmail implements Email {
+public class EmailTrapEmail implements Notificador {
 
 	private String correoOrigen;
 	private String correoDestino;
-	private Properties props;
+	private Properties propiedades;
 	private Session session;
 
-	public EmailTrapEmail(String correoOrigen, String correoDestino) {
-		super();
-		this.correoOrigen = correoOrigen;
-		this.correoDestino = correoDestino;
-		this.props = EmailManager.getProperties();
+	public EmailTrapEmail(Properties propiedades, String correoOrigen, String correoDestino) {
+		this.propiedades = Objects.requireNonNull(propiedades);
+		this.correoOrigen = Objects.requireNonNull(correoOrigen);
+		this.correoDestino = Objects.requireNonNull(correoDestino);
 	}
 
 	@Override
@@ -31,18 +31,18 @@ public class EmailTrapEmail implements Email {
 		// provide sender's email ID
 		String from = this.correoOrigen;
 		// provide Mailtrap's username
-		final String username = props.getProperty("username");
+		final String username = propiedades.getProperty("username");
 		// provide Mailtrap's password
-		final String password = props.getProperty("password");
+		final String password = propiedades.getProperty("password");
 		// provide Mailtrap's host address
-		String host = props.getProperty("host");
+		String host = propiedades.getProperty("host");
 		// configure Mailtrap's SMTP server details
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", props.getProperty("port"));
+		propiedades.put("mail.smtp.auth", "true");
+		propiedades.put("mail.smtp.starttls.enable", "true");
+		propiedades.put("mail.smtp.host", host);
+		propiedades.put("mail.smtp.port", propiedades.getProperty("port"));
 
-		session = Session.getInstance(props, new jakarta.mail.Authenticator() {
+		session = Session.getInstance(propiedades, new jakarta.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
@@ -61,9 +61,8 @@ public class EmailTrapEmail implements Email {
 			message.setText(mensaje);
 			// send the email message
 			Transport.send(message);
-			System.out.println("Email enviado");
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
 	}
 

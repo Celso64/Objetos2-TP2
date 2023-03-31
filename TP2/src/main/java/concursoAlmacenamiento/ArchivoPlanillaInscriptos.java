@@ -3,6 +3,9 @@ package concursoAlmacenamiento;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import concurso.Concurso;
 import concurso.Participante;
@@ -14,28 +17,32 @@ public class ArchivoPlanillaInscriptos implements PlanillaIncriptos {
 	private DateTimeFormatter formato;
 
 	public ArchivoPlanillaInscriptos(OutputStream salida) {
-		this.salida = salida;
+		this.salida = Objects.requireNonNull(salida);
 	}
 
 	public ArchivoPlanillaInscriptos(OutputStream salida, DateTimeFormatter formatoFecha) {
 		this(salida);
-		this.formato = formatoFecha;
+		this.formato = (Optional.ofNullable(formatoFecha)).orElse(DateTimeFormatter.ISO_DATE);
+		;
 	}
 
 	public void incribirParticipante(LocalDate fecha, Participante participante, Concurso concurso) {
 
-		String fechaString = (this.formato == null) ? fecha.toString() : fecha.format(formato).toString();
+		String fechaString = fecha.format(formato).toString();
 
-		StringBuffer stringBuffer = new StringBuffer(fechaString);
-		stringBuffer.append(", ").append(participante.getID().toString()).append(", ")
-				.append(concurso.getID().toString()).append("\n");
+		StringBuffer stringBuffer = new StringBuffer(24);
+
+		List<String> partesDelMensaje = List.of(fechaString, ", ", participante.getID().toString(), ", ",
+				concurso.getID().toString(), "\n");
+
+		partesDelMensaje.forEach(stringBuffer::append);
 
 		String mensaje = stringBuffer.toString();
 
 		try {
 			this.salida.write(mensaje.getBytes());
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

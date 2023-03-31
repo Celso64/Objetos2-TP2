@@ -3,8 +3,10 @@ package concurso;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
-import email.Email;
+import notificacion.Notificador;
 
 public class Concurso {
 
@@ -13,29 +15,30 @@ public class Concurso {
 	private Integer plazo;
 	private List<Participante> participantes;
 	private PlanillaIncriptos salida;
-	private Email notificador;
+	private Notificador notificador;
 
-	public Concurso(Integer plazo, PlanillaIncriptos salida, Email servicioNotificacion) {
-		this.fechaInicio = LocalDate.now();
-		this.plazo = plazo;
+	public Concurso(Integer plazo, PlanillaIncriptos salida, Notificador servicioNotificacion) {
 		this.participantes = new ArrayList<Participante>();
-		this.salida = salida;
-		this.notificador = servicioNotificacion;
+		this.fechaInicio = LocalDate.now();
+		this.plazo = Objects.requireNonNull(plazo);
+		this.salida = Objects.requireNonNull(salida);
+		this.notificador = Objects.requireNonNull(servicioNotificacion);
 	}
 
-	public Concurso(Long id, Integer plazo, PlanillaIncriptos salida, Email servicioNotificacion) {
+	public Concurso(Long id, Integer plazo, PlanillaIncriptos salida, Notificador servicioNotificacion) {
 		this(plazo, salida, servicioNotificacion);
-		this.id = id;
+		this.id = Objects.requireNonNull(id);
 	}
 
-	public Concurso(LocalDate fecha, Integer plazo, PlanillaIncriptos salida, Email servicioNotificacion) {
+	public Concurso(LocalDate fecha, Integer plazo, PlanillaIncriptos salida, Notificador servicioNotificacion) {
 		this(plazo, salida, servicioNotificacion);
-		this.fechaInicio = fecha;
+		this.fechaInicio = Objects.requireNonNull(fecha);
 	}
 
-	public Concurso(Long id, LocalDate fecha, Integer plazo, PlanillaIncriptos salida, Email servicioNotificacion) {
+	public Concurso(Long id, LocalDate fecha, Integer plazo, PlanillaIncriptos salida,
+			Notificador servicioNotificacion) {
 		this(id, plazo, salida, servicioNotificacion);
-		this.fechaInicio = fecha;
+		this.fechaInicio = Objects.requireNonNull(fecha);
 	}
 
 	public void sumarParticipante(Participante participante) {
@@ -46,19 +49,19 @@ public class Concurso {
 		if (hoy.isEqual(fechaInicio)) {
 			participante.sumarPuntos(10);
 		}
-		this.salida.incribirParticipante(LocalDate.now(), participante, this);
-
-		this.notificador.enviarEmail("Concurso", this.generarMensaje(participante));
 		this.participantes.add(participante);
+
+		this.salida.incribirParticipante(LocalDate.now(), participante, this);
+		this.notificador.enviarEmail("Concurso", this.generarMensaje(participante));
+
 	}
 
 	public Integer getPuntosParticipante(String nombre) {
-		for (Participante p : this.participantes) {
-			if (p.equals(new Participante(null, nombre))) {
-				return p.getPuntos();
-			}
-		}
-		return 0;
+
+		Optional<Participante> existeParticipante = this.participantes.stream()
+				.filter(x -> x.equals(new Participante(nombre))).findFirst();
+
+		return existeParticipante.orElse(new Participante("")).getPuntos();
 	}
 
 	public Long getID() {

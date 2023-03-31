@@ -1,6 +1,6 @@
-package email;
+package notificacion;
 
-public interface Email {
+public interface Notificador {
 
 	void enviarEmail(String asunto, String mensaje);
 

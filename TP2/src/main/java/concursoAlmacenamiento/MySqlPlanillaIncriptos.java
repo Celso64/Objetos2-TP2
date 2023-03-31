@@ -18,7 +18,11 @@ public class MySqlPlanillaIncriptos implements PlanillaIncriptos {
 	@Override
 	public void incribirParticipante(LocalDate fecha, Participante participante, Concurso concurso) {
 
-		this.concursoBD.create(fecha, concurso.getID(), participante.getID());
+		try {
+			this.concursoBD.create(fecha, concurso.getID(), participante.getID());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

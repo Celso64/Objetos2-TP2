@@ -12,13 +12,18 @@ public class MySqlConcursoDAO implements ConcursoDAO {
 
 	private String createConcurso = "INSERT INTO concurso(id_concurso, id_participante, fecha_inscripcion) VALUES (?,?,?)";
 
-	private static Properties prop = ConnectionManager.getProperties();
+	private Properties propiedades;
+
+	public MySqlConcursoDAO(Properties propiedades) {
+		this.propiedades = propiedades;
+	}
 
 	@Override
 	public void create(LocalDate fecha, Long idConcurso, Long idParticipante) {
 
-		try (Connection conn = DriverManager.getConnection(prop.getProperty("connection"), prop.getProperty("username"),
-				prop.getProperty("password")); PreparedStatement createC = conn.prepareStatement(createConcurso);) {
+		try (Connection conn = DriverManager.getConnection(propiedades.getProperty("connection"),
+				propiedades.getProperty("username"), propiedades.getProperty("password"));
+				PreparedStatement createC = conn.prepareStatement(createConcurso);) {
 
 			createC.setLong(1, idConcurso);
 			createC.setLong(2, idParticipante);
@@ -29,7 +34,7 @@ public class MySqlConcursoDAO implements ConcursoDAO {
 				throw new RuntimeException("No se pudo agregar a la BD");
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Error en la BD - " + e.getMessage());
 		}
 
 	}
