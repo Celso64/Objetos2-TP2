@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Properties;
 
 public class MySqlConcursoDAO implements ConcursoDAO {
@@ -15,7 +16,7 @@ public class MySqlConcursoDAO implements ConcursoDAO {
 	private Properties propiedades;
 
 	public MySqlConcursoDAO(Properties propiedades) {
-		this.propiedades = propiedades;
+		this.propiedades = Objects.requireNonNull(propiedades);
 	}
 
 	@Override

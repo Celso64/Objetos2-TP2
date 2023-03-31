@@ -1,9 +1,11 @@
 package restaurante;
 
+import java.util.Objects;
+
 public class Comida extends Producto {
 
 	public Comida(Double valor) {
-		super.valor = valor;
+		super.valor = Objects.requireNonNull(valor);
 	}
 
 	@Override

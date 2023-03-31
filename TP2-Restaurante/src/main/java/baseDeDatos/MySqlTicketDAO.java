@@ -6,13 +6,18 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Properties;
 
 public class MySqlTicketDAO implements TicketDAO {
 
 	private String createTicket = "INSERT INTO ticket(fecha, monto) VALUES (?,?)";
 
-	private static Properties prop = ConnectionManager.getProperties();
+	private Properties prop;
+
+	public MySqlTicketDAO(Properties propiedades) {
+		this.prop = Objects.requireNonNull(propiedades);
+	}
 
 	@Override
 	public void create(LocalDate fecha, Double monto) {

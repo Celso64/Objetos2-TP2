@@ -3,6 +3,7 @@ package restaurante;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Cuenta {
 
@@ -16,7 +17,7 @@ public class Cuenta {
 	private List<Bebida> bebidas;
 
 	public Cuenta(Ticket registro) {
-		this.registro = registro;
+		this.registro = Objects.requireNonNull(registro);
 		this.bebidas = new ArrayList<Bebida>();
 		this.comidas = new ArrayList<Comida>();
 	}

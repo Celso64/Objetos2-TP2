@@ -1,5 +1,6 @@
 package mains;
 
+import baseDeDatos.ConnectionManager;
 import baseDeDatos.MySqlTicketDAO;
 import restaurante.Comida;
 import restaurante.Cuenta;
@@ -12,7 +13,7 @@ public class RestauranteApp {
 	public static void main(String[] args) {
 
 		try {
-			Cuenta cuenta = new Cuenta(new BDTicket(new MySqlTicketDAO()));
+			Cuenta cuenta = new Cuenta(new BDTicket(new MySqlTicketDAO(ConnectionManager.getProperties("database"))));
 
 			Tarjeta tarjeta = new Viedma();
 			Comida comida = new Comida(25.5);

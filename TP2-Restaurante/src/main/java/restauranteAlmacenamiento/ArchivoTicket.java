@@ -3,6 +3,8 @@ package restauranteAlmacenamiento;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import java.util.Optional;
 
 import restaurante.Ticket;
 
@@ -12,12 +14,12 @@ public class ArchivoTicket implements Ticket {
 	private DateTimeFormatter formato;
 
 	public ArchivoTicket(OutputStream salida) {
-		this.salida = salida;
+		this.salida = Objects.requireNonNull(salida);
 	}
 
 	public ArchivoTicket(OutputStream salida, DateTimeFormatter formatoFecha) {
 		this(salida);
-		this.formato = formatoFecha;
+		this.formato = (Optional.ofNullable(formatoFecha)).orElse(DateTimeFormatter.ISO_DATE);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package restauranteAlmacenamiento;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import baseDeDatos.TicketDAO;
 import restaurante.Ticket;
@@ -11,7 +12,7 @@ public class BDTicket implements Ticket {
 
 	public BDTicket(TicketDAO ticketDatos) {
 		super();
-		this.ticketDatos = ticketDatos;
+		this.ticketDatos = Objects.requireNonNull(ticketDatos);
 	}
 
 	@Override
