@@ -2,12 +2,12 @@ package mains;
 
 import java.util.List;
 
-import baseDeDatos.BDConnectionManager;
-import baseDeDatos.MySqlConcursoDAO;
+import basededatos.BDConnectionManager;
+import basededatos.MySqlConcursoDAO;
 import concurso.Concurso;
 import concurso.Participante;
 import concurso.PlanillaIncriptos;
-import concursoAlmacenamiento.MySqlPlanillaIncriptos;
+import concursoalmacenamiento.MySqlPlanillaIncriptos;
 import notificacion.EmailManager;
 import notificacion.EmailTrapEmail;
 

@@ -1,9 +1,9 @@
-package restauranteAlmacenamiento;
+package restaurantealmacenamiento;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-import baseDeDatos.TicketDAO;
+import basededatos.TicketDAO;
 import restaurante.Ticket;
 
 public class BDTicket implements Ticket {

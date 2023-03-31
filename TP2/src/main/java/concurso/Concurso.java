@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import notificacion.Notificador;
-
 public class Concurso {
 
 	private Long id = -1L;
@@ -51,7 +49,7 @@ public class Concurso {
 		}
 		this.participantes.add(participante);
 
-		this.salida.incribirParticipante(LocalDate.now(), participante, this);
+		this.salida.incribirParticipante(LocalDate.now(), participante.getID(), this.getID());
 		this.notificador.enviarEmail("Concurso", this.generarMensaje(participante));
 
 	}

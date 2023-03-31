@@ -1,4 +1,4 @@
-package notificacion;
+package concurso;
 
 public interface Notificador {
 

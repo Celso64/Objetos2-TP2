@@ -1,4 +1,4 @@
-package fakeObjects;
+package fakeobjects;
 
 import java.time.LocalDate;
 

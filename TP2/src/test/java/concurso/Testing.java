@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import fakeObjects.FakeNotificador;
-import fakeObjects.FakePlanillaInscriptos;
+import fakeobjects.FakeNotificador;
+import fakeobjects.FakePlanillaInscriptos;
 
 class Testing {
 

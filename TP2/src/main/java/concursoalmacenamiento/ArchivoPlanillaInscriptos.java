@@ -1,4 +1,4 @@
-package concursoAlmacenamiento;
+package concursoalmacenamiento;
 
 import java.io.OutputStream;
 import java.time.LocalDate;
@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import concurso.Concurso;
-import concurso.Participante;
 import concurso.PlanillaIncriptos;
 
 public class ArchivoPlanillaInscriptos implements PlanillaIncriptos {
@@ -26,14 +24,14 @@ public class ArchivoPlanillaInscriptos implements PlanillaIncriptos {
 		;
 	}
 
-	public void incribirParticipante(LocalDate fecha, Participante participante, Concurso concurso) {
+	public void incribirParticipante(LocalDate fecha, Long idParticipante, Long idConcurso) {
 
 		String fechaString = fecha.format(formato).toString();
 
 		StringBuffer stringBuffer = new StringBuffer(24);
 
-		List<String> partesDelMensaje = List.of(fechaString, ", ", participante.getID().toString(), ", ",
-				concurso.getID().toString(), "\n");
+		List<String> partesDelMensaje = List.of(fechaString, ", ", idParticipante.toString(), ", ",
+				idConcurso.toString(), "\n");
 
 		partesDelMensaje.forEach(stringBuffer::append);
 
@@ -42,7 +40,7 @@ public class ArchivoPlanillaInscriptos implements PlanillaIncriptos {
 		try {
 			this.salida.write(mensaje.getBytes());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 

@@ -1,12 +1,12 @@
 package mains;
 
-import baseDeDatos.ConnectionManager;
-import baseDeDatos.MySqlTicketDAO;
+import basededatos.ConnectionManager;
+import basededatos.MySqlTicketDAO;
 import restaurante.Comida;
 import restaurante.Cuenta;
 import restaurante.Tarjeta;
 import restaurante.Viedma;
-import restauranteAlmacenamiento.BDTicket;
+import restaurantealmacenamiento.BDTicket;
 
 public class RestauranteApp {
 

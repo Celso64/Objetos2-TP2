@@ -1,13 +1,15 @@
-package fakeObjects;
+package fakeobjects;
 
-import notificacion.Notificador;
+import java.time.LocalDate;
 
-public class FakeNotificador implements Notificador {
+import concurso.PlanillaIncriptos;
+
+public class FakePlanillaInscriptos implements PlanillaIncriptos {
 
 	private Boolean ultimoUsofueCorrecto;
 
 	@Override
-	public void enviarEmail(String asunto, String mensaje) {
+	public void incribirParticipante(LocalDate fecha, Long idParticipante, Long idConcurso) {
 
 		this.ultimoUsofueCorrecto = true;
 

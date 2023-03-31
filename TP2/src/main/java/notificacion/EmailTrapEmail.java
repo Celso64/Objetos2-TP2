@@ -3,6 +3,7 @@ package notificacion;
 import java.util.Objects;
 import java.util.Properties;
 
+import concurso.Notificador;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
@@ -62,7 +63,7 @@ public class EmailTrapEmail implements Notificador {
 			// send the email message
 			Transport.send(message);
 		} catch (MessagingException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 

@@ -1,4 +1,4 @@
-package baseDeDatos;
+package basededatos;
 
 import java.util.Properties;
 import java.util.ResourceBundle;

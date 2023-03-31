@@ -1,4 +1,4 @@
-package restauranteAlmacenamiento;
+package restaurantealmacenamiento;
 
 import java.io.OutputStream;
 import java.time.LocalDate;
@@ -27,7 +27,7 @@ public class ArchivoTicket implements Ticket {
 
 		try {
 
-			String fechaString = (this.formato == null) ? fecha.toString() : fecha.format(formato).toString();
+			String fechaString = fecha.format(formato).toString();
 
 			StringBuffer cadena = new StringBuffer(fechaString);
 			cadena.append(" || ").append(monto.toString()).append("\n");

@@ -4,6 +4,6 @@ import java.time.LocalDate;
 
 public interface PlanillaIncriptos {
 
-	void incribirParticipante(LocalDate fecha, Participante participante, Concurso concurso);
+	void incribirParticipante(LocalDate fecha, Long idParticipante, Long idConcurso);
 
 }
