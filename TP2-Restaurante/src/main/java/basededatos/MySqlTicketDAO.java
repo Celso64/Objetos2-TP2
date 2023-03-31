@@ -33,7 +33,7 @@ public class MySqlTicketDAO implements TicketDAO {
 				throw new RuntimeException("No se pudo agregar a la BD");
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
 		}
 
 	}

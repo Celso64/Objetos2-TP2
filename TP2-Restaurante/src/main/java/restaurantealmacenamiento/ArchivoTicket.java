@@ -1,5 +1,6 @@
 package restaurantealmacenamiento;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,18 +26,17 @@ public class ArchivoTicket implements Ticket {
 	@Override
 	public void registrarPago(LocalDate fecha, Double monto) {
 
+		String fechaString = fecha.format(formato).toString();
+
+		StringBuffer cadena = new StringBuffer(fechaString);
+		cadena.append(" || ").append(monto.toString()).append("\n");
+
+		String registro = cadena.toString();
+
 		try {
-
-			String fechaString = fecha.format(formato).toString();
-
-			StringBuffer cadena = new StringBuffer(fechaString);
-			cadena.append(" || ").append(monto.toString()).append("\n");
-
-			String registro = cadena.toString();
-
 			this.salida.write(registro.getBytes());
-		} catch (Exception e) {
-
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
 		}
 
 	}
